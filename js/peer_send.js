@@ -2,11 +2,15 @@
     var peer = null
     var peerId = null
     var conn = null
-
+    var myname=null
+    var passcode=null
+    var oppname=null
+    var extraid="harsha"
 
 const mediaStreamConstraints = {
   video: true,
   audio: true,
+  noiseSuppression: true,
 };
 
 // Video element where stream will be placed.
@@ -19,7 +23,7 @@ let localStream;
 
 
     function initialize() {
-        peer = new Peer({debug: 1})
+        peer = new Peer(extraid+passcode,{debug: 1})
         peer.on('open', function(id) {
             peerId = id
             console.log(peerId)
@@ -34,10 +38,8 @@ let localStream;
             console.log('Received', data);
         });
         conn.on('close', function() {
-            if(!ended) {
-                $('#game .alert p').text('Opponent forfeited!')
-            }
-            turn = false
+            alert("connection closed")
+            console.log("connection closed")
         })
         peer.on('error', function(err) {
             alert(''+err)
@@ -65,6 +67,7 @@ let localStream;
 
     }
     function start() {
+        passcode=prompt("passcode: (in small letters)")
         initialize()
         peer.on('open', function() {
             console.log("searching to connect"+peerId)

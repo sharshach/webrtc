@@ -4,10 +4,12 @@
     var destId=null
     var conn = null
     var call=null
+    var extraid="harsha"
 
 const mediaStreamConstraints = {
   video: true,
   audio:true,
+  noiseSuppression: true,
 };
 
 // Video element where stream will be placed.
@@ -31,7 +33,10 @@ let localStream;
     function run(){
         console.log("hi")
         conn.send("hi i am here")
-        
+        conn.on('close', function() {
+            alert("connection closed")
+            console.log("connection closed")
+        })
         function gotLocalMediaStream(mediaStream) {
             localStream = mediaStream;
             call = peer.call(destId,localStream);
@@ -57,7 +62,8 @@ let localStream;
     function join() {
         initialize()
         peer.on('open', function() {
-            destId = prompt("Opponent's peer ID:")
+            destId = prompt("passcode:")
+            destId=extraid+destId
             conn = peer.connect(destId, {
                 reliable: true
             })
