@@ -23,7 +23,15 @@ let localStream;
 
 
     function initialize() {
-        peer = new Peer(extraid+passcode,{debug: 1})
+        peer = new Peer(
+            extraid+passcode,
+            {
+                host:"arteegee.herokuapp.com",
+                port:80,
+                path: '/peerjs',
+                debug: 3
+            }
+        )
         peer.on('open', function(id) {
             peerId = id
             console.log(peerId)
@@ -38,6 +46,7 @@ let localStream;
             console.log('Received', data);
         });
         conn.on('close', function() {
+            
             alert("connection closed")
             console.log("connection closed")
         })

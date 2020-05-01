@@ -21,7 +21,14 @@ let localStream;
 
 
     function initialize() {
-        peer = new Peer({debug: 2})
+        peer = new Peer(
+                {
+                    host:"arteegee.herokuapp.com",
+                    port:80,
+                    path: '/peerjs',
+                    debug: 3
+                }
+            )
         peer.on('open', function(id) {
             peerId = id
             console.log(peerId)
