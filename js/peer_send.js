@@ -26,9 +26,8 @@ let localStream;
         peer = new Peer(
             extraid+passcode,
             {
-                host:"arteegee.herokuapp.com",
+                host:"csh-peerjs-server.herokuapp.com",
                 port:location.port || (location.protocol === 'https:' ? 443 : 80),
-                path:'/peerjs',
                 debug: 3,
             }
         )
